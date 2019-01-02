@@ -1,17 +1,25 @@
 module DistanceConversions
-( yardsToFeet
+( chainsToYards
+, yardsToFeet
 , feetToInches
 , inchesToCentimetres
+, centimetresToMetres
 ) where
+
+chainsToYards :: Float -> Float
+chainsToYards = (* 22)
 
 -- Define yards to feet
 yardsToFeet ::  Float -> Float
-yardsToFeet y = undefined
+yardsToFeet = (* 3)
 
 -- Define feet to inches
 feetToInches :: Float -> Float
-feetToInches f = undefined
+feetToInches = (* 12)
 
 -- Define inches to centimetres
 inchesToCentimetres :: Float -> Float
-inchesToCentimetres i = undefined
+inchesToCentimetres = (* 2.54)
+
+centimetresToMetres :: Float -> Float
+centimetresToMetres = (/ 100)
