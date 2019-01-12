@@ -1,3 +1,4 @@
+import Data.List
 {-
  - We are going to create some types for a deck of cards
  - The cards need to have an ordering, based on the standard ranking http://en.wikipedia.org/wiki/Standard_52-card_deck#Rank_and_color
@@ -12,13 +13,16 @@
  - Uncomment the following declarations to complete the implementation, and provide an implementation for instance Show Card
  -}
 
---data Suit = 
---data Digit = 
---data Card = 
+data Suit = Clubs | Diamonds | Hearts | Spades deriving (Eq, Ord, Show)
+data Digit = Two | Three | Four | Five | Sib | Seven | Eight | Nine | Ten | Jack | Queen | King | Ace deriving (Eq, Ord, Show)
+data Card = Card Digit Suit deriving (Eq, Ord)
+
+instance Show Card where
+    show (Card digit suit) = "The " ++ show digit ++ " of " ++ show suit
 
 -- We should be able to provide a function which returns the higher ranked card:
 betterCard :: Card -> Card -> Card
-betterCard x y = undefined
+betterCard = max
 
 -- Here is a new Typeclass, which represents some kind of playing hand in a game.
 -- It returns True for a "winning hand", depending on the rules for the type of class we are playing with
@@ -27,13 +31,11 @@ class Hand a where
 
 -- Implement Hand for Card, where play returns true if the list contains the Ace of Spades
 instance Hand Card where
-    play c = undefined
+    play = ((Card Ace Spades) `elem`)
 
 -- Create a new Coin type
---data Coin = 
+data Coin = Tail | Head deriving (Show, Eq, Ord)
 
 -- Implement Hand for Coin, where play returns true if there are ten heads in a row in the list
 instance Hand Coin where
-	play c =  undefined
-
--- Have a play with implementing Hand for some other types, for instance Int and Bool
+    play = (replicate 10 Head `isInfixOf`)
